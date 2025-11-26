@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>FreelanceHub — Connect with Clients & Grow Your Freelance Career</title>
+    <meta name="description" content="FreelanceHub — create your profile, find jobs, and connect with clients. Clean, responsive landing page and starter UI for freelance users." />
+    <meta name="theme-color" content="#0b6ef6" />
+    <!-- Google Font (served by Google) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root{
+            --bg:#0f1724;
+            --card:#0b1220;
+            --muted:#94a3b8;
+            --accent:#0b6ef6;
+            --accent-2:#7c3aed;
+            --glass: rgba(255,255,255,0.04);
+            --radius:12px;
+            --max-width:1100px;
+            --text:#e6eef8;
+            --success:#10b981;
+            --danger:#ef4444;
+            --shadow: 0 6px 18px rgba(2,6,23,0.6);
+            color-scheme: dark;
+        }
+        *{box-sizing:border-box}
+        html,body{height:100%}
+        body{
+            margin:0;
+            font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+            background:
+                radial-gradient(800px 400px at 10% 10%, rgba(123,97,255,0.08), transparent 8%),
+                radial-gradient(600px 300px at 90% 90%, rgba(11,110,246,0.06), transparent 10%),
+                var(--bg);
+            color:var(--text);
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
+            padding:32px 20px;
+            display:flex;
+            justify-content:center;
+        }
+        .container{
+            width:100%;
+            max-width:var(--max-width);
+        }
+
+        /* Header */
+        header{
+            display:flex;
+            gap:16px;
+            align-items:center;
+            justify-content:space-between;
+            margin-bottom:28px;
+        }
+        .brand{
+            display:flex;
+            gap:12px;
+            align-items:center;
+            text-decoration:none;
+            color:inherit;
+        }
+        .logo{
+            width:44px;height:44px;
+            background:linear-gradient(135deg,var(--accent),var(--accent-2));
+            border-radius:10px;
+            display:grid;place-items:center;
+            box-shadow:0 6px 18px rgba(11,110,246,0.18);
+            font-weight:700;
+            font-size:18px;
+            color:white;
+        }
+        nav{
+            display:flex;
+            gap:18px;
+            align-items:center;
+        }
+        nav a{
+            color:var(--muted);
+            text-decoration:none;
+            font-weight:600;
+            padding:8px 10px;
+            border-radius:8px;
+        }
+        nav a:hover{color:var(--text);background:var(--glass)}
+        .actions{display:flex;gap:10px;align-items:center}
+        .btn{
+            display:inline-flex;align-items:center;gap:8px;
+            border:0;padding:10px 14px;border-radius:9px;
+            cursor:pointer;font-weight:600;
+        }
+        .btn-ghost{background:transparent;color:var(--text);border:1px solid rgba(255,255,255,0.03)}
+        .btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));box-shadow:0 8px 24px rgba(11,110,246,0.14);color:white}
+        /* Mobile */
+        .menu-toggle{display:none;background:transparent;border:0;color:var(--text);font-size:20px}
+
+        /* Hero */
+        .hero{
+            display:grid;
+            grid-template-columns:1fr 420px;
+            gap:28px;
+            align-items:center;
+            margin-bottom:36px;
+        }
+        .hero-card{
+            background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+            padding:28px;border-radius:var(--radius);box-shadow:var(--shadow);
+            border:1px solid rgba(255,255,255,0.03);
+        }
+        .eyebrow{display:inline-block;background:linear-gradient(90deg,#0b6ef6, #7c3aed);padding:6px 10px;border-radius:999px;font-weight:700;color:white;font-size:13px}
+        h1{margin:12px 0 6px;font-size:28px;line-height:1.06}
+        p.lead{margin:0;color:var(--muted);font-size:15px}
+        .hero-cta{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
+        .stats{
+            display:flex;gap:12px;margin-top:20px;color:var(--muted);
+        }
+        .stat{background:rgba(255,255,255,0.02);padding:12px;border-radius:10px;min-width:100px;text-align:center}
+        .stat b{display:block;color:var(--text);font-size:18px}
+
+        /* Right column: signup card */
+        .signup{
+            background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+            padding:22px;border-radius:14px;border:1px solid rgba(255,255,255,0.03);
+        }
+        .form-row{display:flex;gap:10px}
+        .input,select,textarea{
+            width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);
+            background:transparent;color:var(--text);outline:none;font-size:14px;
+        }
+        .small{font-size:13px;color:var(--muted);margin-top:8px}
+        .checkbox{display:flex;gap:8px;align-items:center;font-size:14px;color:var(--muted)}
+
+        /* Cards: services, jobs, freelancers */
+        .grid{
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:18px;
+            margin-bottom:28px;
+        }
+        .card{
+            background:var(--card);padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);
+            box-shadow:0 6px 18px rgba(2,6,23,0.5);
+        }
+        .service-icon{
+            width:48px;height:48px;border-radius:10px;display:grid;place-items:center;
+            background:linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+        }
+        .card h3{margin:10px 0 6px;font-size:16px}
+        .muted{color:var(--muted);font-size:14px}
+
+        /* List of jobs */
+        .jobs{display:flex;flex-direction:column;gap:12px}
+        .job{
+            display:flex;justify-content:space-between;align-items:center;padding:12px;border-radius:10px;
+            background:linear-gradient(180deg, rgba(255,255,255,0.012), transparent);
+            border:1px solid rgba(255,255,255,0.02);
+        }
+        .job .meta{color:var(--muted);font-size:13px}
+        .job .apply{display:inline-flex;gap:8px;align-items:center;padding:8px 12px;border-radius:10px;background:var(--accent);color:white;border:0}
+
+        /* Freelancers list */
+        .profiles{display:flex;flex-direction:column;gap:12px}
+        .profile{display:flex;gap:12px;align-items:center}
+        .avatar{width:56px;height:56px;border-radius:12px;background:linear-gradient(90deg,#0b6ef6,#7c3aed);display:grid;place-items:center;font-weight:700;color:white}
+        .profile .info{flex:1}
+        .tags{display:flex;gap:8px;flex-wrap:wrap}
+        .tag{background:rgba(255,255,255,0.03);padding:6px 8px;border-radius:999px;font-size:13px;color:var(--muted)}
+
+        /* Testimonials */
+        .testimonials{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+        .testimonial{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+
+        footer{margin-top:32px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.02);display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:14px}
+
+        /* Responsive */
+        @media (max-width:1000px){
+            .hero{grid-template-columns:1fr 360px}
+            .grid{grid-template-columns:repeat(2,1fr)}
+            .testimonials{grid-template-columns:1fr}
+        }
+        @media (max-width:760px){
+            header{flex-direction:column;align-items:stretch;gap:12px}
+            .menu-toggle{display:inline-block}
+            nav{display:none}
+            .hero{grid-template-columns:1fr;gap:14px}
+            .signup{order:2}
+            .grid{grid-template-columns:1fr}
+            .profiles{gap:10px}
+            .testimonials{grid-template-columns:1fr}
+        }
+
+        /* small helpers */
+        .muted-very{color:rgba(255,255,255,0.06);font-size:12px}
+        a.link{color:var(--accent);text-decoration:none;font-weight:600}
+    </style>
+</head>
+<body>
+    <div class="container" id="app">
+        <header>
+            <a class="brand" href="#" aria-label="FreelanceHub homepage">
+                <div class="logo">FH</div>
+                <div>
+                    <div style="font-weight:700">FreelanceHub</div>
+                    <div style="font-size:12px;color:var(--muted)">Find work — showcase skills</div>
+                </div>
+            </a>
+
+            <nav aria-label="Main navigation">
+                <a href="#how">How it works</a>
+                <a href="#jobs">Jobs</a>
+                <a href="#freelancers">Freelancers</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#contact">Contact</a>
+            </nav>
+
+            <div class="actions">
+                <button class="btn btn-ghost" onclick="document.querySelector('#login').scrollIntoView({behavior:'smooth'})">Log in</button>
+                <button class="btn btn-primary" onclick="document.querySelector('#signup').scrollIntoView({behavior:'smooth'})">Get started</button>
+                <button class="menu-toggle" aria-label="Toggle menu" onclick="toggleNav()">☰</button>
+            </div>
+        </header>
+
+        <main>
+            <section class="hero">
+                <div class="hero-card">
+                    <span class="eyebrow">For Freelancers & Clients</span>
+                    <h1>Grow your freelance business. Find clients. Showcase work.</h1>
+                    <p class="lead">Create a professional profile, browse curated jobs, and manage proposals — all in one clean, privacy-first workspace made for independent professionals.</p>
+
+                    <div class="hero-cta">
+                        <button class="btn btn-primary" onclick="document.querySelector('#signup').scrollIntoView({behavior:'smooth'})">Create profile</button>
+                        <button class="btn btn-ghost" onclick="document.querySelector('#jobs').scrollIntoView({behavior:'smooth'})">Browse jobs</button>
+                    </div>
+
+                    <div class="stats" aria-hidden="true">
+                        <div class="stat"><b>12k+</b><span class="muted">Active projects</span></div>
+                        <div class="stat"><b>8k+</b><span class="muted">Verified freelancers</span></div>
+                        <div class="stat"><b>95%</b><span class="muted">Success rate</span></div>
+                    </div>
+                </div>
+
+                <aside class="signup" id="signup" aria-labelledby="signup-title">
+                    <h3 id="signup-title" style="margin:0 0 6px">Create your free profile</h3>
+                    <p class="muted" style="margin:0 0 14px">Sign up and start applying to jobs or accept direct client invitations.</p>
+                    <form id="signupForm" onsubmit="return handleSignup(event)">
+                        <div class="form-row" style="margin-bottom:10px">
+                            <input class="input" name="name" placeholder="Full name" required />
+                            <input class="input" name="title" placeholder="Title (e.g., Frontend Developer)" required />
+                        </div>
+                        <div style="margin-bottom:10px">
+                            <input class="input" name="email" type="email" placeholder="Email address" required />
+                        </div>
+                        <div style="margin-bottom:10px">
+                            <select class="input" name="role" required>
+                                <option value="">I am a...</option>
+                                <option>Freelancer / Contractor</option>
+                                <option>Client / Hiring</option>
+                            </select>
+                        </div>
+                        <div style="margin-bottom:10px">
+                            <textarea class="input" name="bio" rows="3" placeholder="Short bio — what you do and your strengths"></textarea>
+                        </div>
+                        <div style="display:flex;gap:8px;align-items:center;margin-bottom:12px">
+                            <label class="checkbox"><input type="checkbox" name="agree" required /> I agree to the terms</label>
+                        </div>
+                        <div style="display:flex;gap:8px">
+                            <button class="btn btn-primary" type="submit">Create profile — it's free</button>
+                            <button class="btn btn-ghost" type="button" onclick="document.querySelector('#signupForm').reset()">Clear</button>
+                        </div>
+                        <div class="small">By signing up you agree to receive occasional emails. We respect your privacy.</div>
+                    </form>
+                </aside>
+            </section>
+
+            <!-- Features -->
+            <section aria-labelledby="features">
+                <div style="display:flex;justify-content:space-between;align-items:end;margin-bottom:12px">
+                    <h2 id="features" style="margin:0">Built for independent professionals</h2>
+                    <div class="muted">Tools to run your freelance business</div>
+                </div>
+
+                <div class="grid" role="list">
+                    <div class="card" role="listitem">
+                        <div style="display:flex;gap:12px;align-items:center">
+                            <div class="service-icon" aria-hidden="true">
+                                <!-- simple icon -->
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 12h18" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </div>
+                            <div>
+                                <h3>Profile & Portfolio</h3>
+                                <div class="muted">Showcase your best work with rich project pages, skills, and client reviews.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" role="listitem">
+                        <div style="display:flex;gap:12px;align-items:center">
+                            <div class="service-icon" aria-hidden="true">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 7h18" stroke="white" stroke-width="1.6" stroke-linecap="round"/><path d="M6 12h12" stroke="white" stroke-width="1.6" stroke-linecap="round"/><path d="M9 17h6" stroke="white" stroke-width="1.6" stroke-linecap="round"/></svg>
+                            </div>
+                            <div>
+                                <h3>Curated Jobs</h3>
+                                <div class="muted">Daily job matches and invitations tailored to your skills and rates.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" role="listitem">
+                        <div style="display:flex;gap:12px;align-items:center">
+                            <div class="service-icon" aria-hidden="true">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3v18" stroke="white" stroke-width="1.6" stroke-linecap="round"/><path d="M3 12h18" stroke="white" stroke-width="1.6" stroke-linecap="round"/></svg>
+                            </div>
+                            <div>
+                                <h3>Secure Payments</h3>
+                                <div class="muted">Escrow, invoices, and milestone tracking built into your workflow.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Jobs + Freelancers -->
+            <section style="display:grid;grid-template-columns:1fr 420px;gap:18px;margin-top:18px" id="jobs">
+                <div>
+                    <div style="display:flex;justify-content:space-between;align-items:end;margin-bottom:12px">
+                        <h2 style="margin:0">Latest jobs</h2>
+                        <div class="muted">Filtered for your skills</div>
+                    </div>
+
+                    <div class="jobs" aria-live="polite">
+                        <div class="job">
+                            <div>
+                                <div style="font-weight:700">React Developer for B2B Dashboard</div>
+                                <div class="meta">Remote • $40–60/hr • Full-time • 3 weeks ago</div>
+                            </div>
+                            <div style="display:flex;flex-direction:column;gap:8px;align-items:end">
+                                <div class="muted-very">10 proposals</div>
+                                <button class="apply" onclick="alert('Apply flow placeholder')">Apply</button>
+                            </div>
+                        </div>
+
+                        <div class="job">
+                            <div>
+                                <div style="font-weight:700">Product Designer — Mobile App</div>
+                                <div class="meta">Remote • $30–45/hr • Contract • 1 week ago</div>
+                            </div>
+                            <div style="display:flex;flex-direction:column;gap:8px;align-items:end">
+                                <div class="muted-very">6 proposals</div>
+                                <button class="apply" onclick="alert('Apply flow placeholder')">Apply</button>
+                            </div>
+                        </div>
+
+                        <div class="job">
+                            <div>
+                                <div style="font-weight:700">Full-stack Engineer (Node + TypeScript)</div>
+                                <div class="meta">Hybrid • $70k–90k • Part-time • 4 days ago</div>
+                            </div>
+                            <div style="display:flex;flex-direction:column;gap:8px;align-items:end">
+                                <div class="muted-very">14 proposals</div>
+                                <button class="apply" onclick="alert('Apply flow placeholder')">Apply</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top:18px;display:flex;gap:8px">
+                        <button class="btn btn-ghost" onclick="alert('See more jobs')">See more</button>
+                        <button class="btn btn-primary" onclick="document.querySelector('#signup').scrollIntoView({behavior:'smooth'})">Post a job</button>
+                    </div>
+                </div>
+
+                <aside id="freelancers" aria-labelledby="freelancers-title">
+                    <div style="display:flex;justify-content:space-between;align-items:end;margin-bottom:12px">
+                        <h3 id="freelancers-title" style="margin:0">Top freelancers</h3>
+                        <div class="muted">Verified profiles</div>
+                    </div>
+
+                    <div class="profiles">
+                        <div class="profile">
+                            <div class="avatar">AG</div>
+                            <div class="info">
+                                <div style="display:flex;justify-content:space-between;align-items:center">
+                                    <div>
+                                        <div style="font-weight:700">Aisha Gomez</div>
+                                        <div class="muted">Frontend engineer • React, TypeScript</div>
+                                    </div>
+                                    <div style="text-align:right">
+                                        <div style="font-weight:700">4.9</div>
+                                        <div class="muted-very">1.2k hrs</div>
+                                    </div>
+                                </div>
+                                <div class="tags" style="margin-top:8px">
+                                    <span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">UI/UX</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="profile">
+                            <div class="avatar">MK</div>
+                            <div class="info">
+                                <div style="display:flex;justify-content:space-between;align-items:center">
+                                    <div>
+                                        <div style="font-weight:700">Marcus Kim</div>
+                                        <div class="muted">Product designer • Figma, Prototyping</div>
+                                    </div>
+                                    <div style="text-align:right">
+                                        <div style="font-weight:700">4.8</div>
+                                        <div class="muted-very">780 hrs</div>
+                                    </div>
+                                </div>
+                                <div class="tags" style="margin-top:8px">
+                                    <span class="tag">Figma</span><span class="tag">Design Systems</span><span class="tag">Branding</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="profile">
+                            <div class="avatar">LR</div>
+                            <div class="info">
+                                <div style="display:flex;justify-content:space-between;align-items:center">
+                                    <div>
+                                        <div style="font-weight:700">Lina Rodriguez</div>
+                                        <div class="muted">Full-stack • Node.js, PostgreSQL</div>
+                                    </div>
+                                    <div style="text-align:right">
+                                        <div style="font-weight:700">4.9</div>
+                                        <div class="muted-very">2.5k hrs</div>
+                                    </div>
+                                </div>
+                                <div class="tags" style="margin-top:8px">
+                                    <span class="tag">Node.js</span><span class="tag">AWS</span><span class="tag">DB</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top:12px">
+                        <button class="btn btn-ghost" onclick="alert('Explore freelancers')">Explore all</button>
+                    </div>
+                </aside>
+            </section>
+
+            <!-- How it works -->
+            <section id="how" style="margin-top:24px">
+                <h2 style="margin:0 0 8px">How it works</h2>
+                <p class="muted" style="margin:0 0 12px">Simple steps to get started and secure your next client.</p>
+
+                <div style="display:flex;gap:12px;flex-wrap:wrap">
+                    <div class="card" style="flex:1;min-width:220px">
+                        <h3>1. Create profile</h3>
+                        <div class="muted">Add a bio, highlight projects, set your rates and availability.</div>
+                    </div>
+                    <div class="card" style="flex:1;min-width:220px">
+                        <h3>2. Find jobs</h3>
+                        <div class="muted">Apply to curated jobs or be invited by clients searching talent.</div>
+                    </div>
+                    <div class="card" style="flex:1;min-width:220px">
+                        <h3>3. Get paid securely</h3>
+                        <div class="muted">Use escrow, send invoices, and manage milestones with confidence.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Testimonials -->
+            <section style="margin-top:20px">
+                <h2 style="margin:0 0 10px">What freelancers say</h2>
+                <div class="testimonials">
+                    <div class="testimonial">
+                        <div style="font-weight:700">"I landed my first long-term client within a week."</div>
+                        <div class="muted" style="margin-top:8px">Olivia — UX Designer</div>
+                        <div class="muted-very" style="margin-top:6px">FreelanceHub gave me a polished profile and steady leads.</div>
+                    </div>
+                    <div class="testimonial">
+                        <div style="font-weight:700">"Payments and milestones are straightforward and reliable."</div>
+                        <div class="muted" style="margin-top:8px">Rahul — Full-stack Dev</div>
+                        <div class="muted-very" style="margin-top:6px">I can focus on development while the platform handles contracts.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pricing -->
+            <section id="pricing" style="margin-top:20px">
+                <h2 style="margin:0 0 10px">Pricing</h2>
+                <div class="grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:18px">
+                    <div class="card">
+                        <div style="display:flex;justify-content:space-between;align-items:center">
+                            <div>
+                                <h3 style="margin:0">Free</h3>
+                                <div class="muted">Basic profile and job applications</div>
+                            </div>
+                            <div style="font-size:20px;font-weight:700">$0</div>
+                        </div>
+                        <ul style="margin-top:12px;color:var(--muted);padding-left:18px">
+                            <li>Profile & portfolio</li>
+                            <li>Apply to jobs</li>
+                            <li>Client messaging</li>
+                        </ul>
+                        <div style="margin-top:12px">
+                            <button class="btn btn-primary" onclick="alert('Signed up for Free plan')">Choose</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div style="display:flex;justify-content:space-between;align-items:center">
+                            <div>
+                                <h3 style="margin:0">Pro</h3>
+                                <div class="muted">Boosted visibility & premium support</div>
+                            </div>
+                            <div style="font-size:20px;font-weight:700">$9/mo</div>
+                        </div>
+                        <ul style="margin-top:12px;color:var(--muted);padding-left:18px">
+                            <li>Featured in search</li>
+                            <li>Analytics & insights</li>
+                            <li>Priority support</li>
+                        </ul>
+                        <div style="margin-top:12px">
+                            <button class="btn btn-ghost" onclick="alert('Pro subscription flow')">Choose</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div style="display:flex;justify-content:space-between;align-items:center">
+                            <div>
+                                <h3 style="margin:0">Business</h3>
+                                <div class="muted">For agencies & teams</div>
+                            </div>
+                            <div style="font-size:20px;font-weight:700">Custom</div>
+                        </div>
+                        <ul style="margin-top:12px;color:var(--muted);padding-left:18px">
+                            <li>Team accounts</li>
+                            <li>Contract tools</li>
+                            <li>Dedicated success manager</li>
+                        </ul>
+                        <div style="margin-top:12px">
+                            <button class="btn btn-ghost" onclick="alert('Contact sales')">Contact sales</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact / Newsletter -->
+            <section id="contact" style="margin-top:18px;margin-bottom:26px">
+                <h2 style="margin:0 0 8px">Contact & Newsletter</h2>
+                <div style="display:flex;gap:12px;flex-wrap:wrap">
+                    <div style="flex:1;min-width:260px" class="card">
+                        <h3 style="margin-top:0">Get support</h3>
+                        <p class="muted">Questions about billing, features, or partnerships? Send us a message.</p>
+                        <form id="contactForm" onsubmit="return handleContact(event)">
+                            <input class="input" name="contactName" placeholder="Your name" style="margin:8px 0" required />
+                            <input class="input" name="contactEmail" type="email" placeholder="Email" style="margin-bottom:8px" required />
+                            <textarea class="input" name="message" rows="4" placeholder="How can we help?" style="margin-bottom:8px"></textarea>
+                            <div style="display:flex;gap:8px">
+                                <button class="btn btn-primary" type="submit">Send message</button>
+                                <button class="btn btn-ghost" type="button" onclick="document.querySelector('#contactForm').reset()">Clear</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div style="min-width:260px;max-width:420px" class="card">
+                        <h3 style="margin-top:0">Stay in the loop</h3>
+                        <p class="muted">Get curated jobs and tips for freelancers in your inbox.</p>
+                        <form id="newsletter" onsubmit="return handleNewsletter(event)">
+                            <input class="input" name="newsletterEmail" type="email" placeholder="Email address" required style="margin-bottom:8px" />
+                            <div style="display:flex;gap:8px">
+                                <button class="btn btn-primary" type="submit">Subscribe</button>
+                                <button class="btn btn-ghost" type="button" onclick="document.querySelector('#newsletter').reset()">Clear</button>
+                            </div>
+                            <div class="small" style="margin-top:8px">We won't share your email. Unsubscribe any time.</div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div>© <strong>FreelanceHub</strong> — Built for independent professionals</div>
+            <div style="display:flex;gap:12px;align-items:center">
+                <a class="link" href="#">Privacy</a>
+                <a class="link" href="#">Terms</a>
+                <a class="link" href="#" onclick="alert('Contact sales')">Contact</a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Minimal interactivity: mobile nav toggle and form handlers
+        function toggleNav(){
+            const nav = document.querySelector('nav');
+            if(!nav) return;
+            nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        function handleSignup(e){
+            e.preventDefault();
+            const form = e.target;
+            const data = Object.fromEntries(new FormData(form));
+            // Don't actually send data — show placeholder
+            alert('Profile created (demo): ' + (data.name || '—') + ' — ' + (data.title || '—'));
+            form.reset();
+            return false;
+        }
+
+        function handleContact(e){
+            e.preventDefault();
+            const data = Object.fromEntries(new FormData(e.target));
+            alert('Message sent (demo). We will reply to: ' + data.contactEmail);
+            e.target.reset();
+            return false;
+        }
+
+        function handleNewsletter(e){
+            e.preventDefault();
+            const data = Object.fromEntries(new FormData(e.target));
+            alert('Subscribed (demo): ' + data.newsletterEmail);
+            e.target.reset();
+            return false;
+        }
+
+        // Improve keyboard accessibility for nav toggle
+        document.querySelectorAll('button.menu-toggle').forEach(btn => {
+            btn.addEventListener('keydown', (ev) => {
+                if(ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); toggleNav(); }
+            });
+        });
+    </script>
+</body>
+</html></aside></div>
